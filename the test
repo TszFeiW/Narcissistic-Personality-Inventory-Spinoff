@@ -1,4 +1,4 @@
-
+#my recreation of the nci - incomplete
 import time
 import matplotlib.pyplot as plt
 from PyInquirer import prompt, print_json
