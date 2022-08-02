@@ -1,1 +1,66 @@
 
+import time
+import matplotlib.pyplot as plt
+from PyInquirer import prompt, print_json
+def narc_test():
+    result=0 
+    LedAuth, GrandExh, EntExpl = 0, 0, 0
+    print('This is a test based off the Narcissistic Personality Inventory. \n')
+    time.sleep(5)
+    print('Pick version 1 or 2: \n 1. full version (40 questions) \n 2. shortened version (16 questions)', end='')
+    version = int(input())
+    if version<1 or version>2:
+        print('invalid input')
+        print('Pick version 1 or 2: \n 1. full version (40 questions) \n 2. shortened version (16 questions) \n', end='')
+        version=int(input())
+    print('Alright. \n')
+    time.sleep(0.5)
+    print('For each statement, enter a number from 0 to 5 indicating how much you agree with it with 0 being ' \
+          'not at all and 5 being very much. \n')
+    time.sleep(4)
+    print('Disclaimer: this in no way is a diagnoses for Narcissistic Personality Disorder nor does it' \
+          ' necessarily accurately represent the taker. \n')
+    time.sleep(4)
+    print('Obviously the more honestly you answer, the more accurate your results will be.')
+    time.sleep(3)
+    print('The test will now begin. \n')
+    time.sleep(3)
+    questions = ['I like to be the center of attention.', 'I am a special person.', 'Everybody likes to hear my stories (they are good).', 'I insist upon getting the respect that I am due.', 
+                 'I like having authority over other people.', 'I am going to be a great and successful person.', 'I can make anybody believe anything I want them to.', 
+                 'I expect a great deal from others', 'I like to stand out from the crowd', 'I am an extraordinary person.', 'I always know what I am doing.', 
+                 'I can easily manipulate others and don\'t mind doing so when it suits me.', 'I like the fact that people always seem to recognize my authority.', 
+                 'I know that I am good because everybody keeps telling me so.', 'I will usually show off if I get the chance.', 'I am more capable and knowledgeable than other people.', 
+                 'Caution is overblown, I would do almost anything on a dare.', 'If I ruled the world it would be a better place.',  'I will be a success.', 'I am a good leader.', 'I am assertive.', 
+                'I can read people like a book.', 'I always like to take responsibility for making decisions.', 'I want to amount to something in the eyes of the world.', 
+                 'I want to amount to something in the eyes of the world.', 'I like to look at my body.', 'I almost never depend on anyone else to get things done.', 
+                 'Modesty does not suit me very well', 'I like to show off my body.', 'I have a natural talent for influencing people.', 'I will never be satisfied until I get all that I deserve.', 
+                 'I can usually talk my way out of any predicament.','I like and deserve to be complimented.', 'I have a strong will to gain power for the sake of power.', 
+                 'I would like to start new fads and fashions.', 'I like to look at myself in the mirror.', 'I can live my life in any way I want to regardless of others.', 'I would almost always prefer to be a leader.', 
+                 'I am a born leader.','I would like somebody to write my biography.', 'I get upset when people don\'t notice how I look when I go out in public.']
+    if version==2:
+        questions=questions[0:16]
+    for i in range(len(questions)):
+        ques_num=i+1
+        print(f'\n {ques_num}. {questions[i]}')
+        print('disagree - 0 1 2 3 4 5 - agree', end='')
+        x = int(input())
+        if x<0 or x>5:
+            print('invalid input')
+            print(f'{ques_num}. {questions[i]}', end='')
+            x = int(input())
+        else:
+            result += x
+    time.sleep(1)
+    if version==1:
+        print(f'Your score is {result}. \nThe average score is usually between 62 and 80. Narcissists score over 150.')
+    if version==2:
+        print(f'Your score is {result}. \nThe average score is usually between 32 and 44. Narcissists score over 62.')
+    print('note: these are estimated figures. \n ')
+    print('Additionally, your answers have been scored on 3 characteristics of narcissism: Leadership/Authority, Grandiose Exhibitionism, and Entitlement/Exploitativeness')
+    plt.rcdefaults()
+    fig, ax = plt.subplots()
+    facets = ('Leadership/Authority', 'Grandiose/Exhibitionism', 'Entitlement/Exploitativeness')
+    scores = LedAuth, GrandExh, EntExpl
+    ax.barh(facets, scores, align='center')
+    ax.invert_yaxis()  
+    plt.show()
